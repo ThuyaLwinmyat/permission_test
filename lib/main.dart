@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 void main() {
   runApp(const MyApp());
@@ -33,6 +34,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   void _incrementCounter() {
     setState(() {});
+    reqPermission();
   }
 
   @override
@@ -47,17 +49,62 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       body: const Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Flexible(
-              flex: 1,
-              fit: FlexFit.loose,
-              child: Text(
-                'Hello',
-              ),
+        child: SingleChildScrollView(
+          child: IntrinsicHeight(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: Text(
+                    'Hello',
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: SizedBox(height: 10),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.loose,
+                        child: Text("Hi"),
+                      ),
+                      Flexible(
+                        child: SizedBox(
+                          width: 50,
+                        ),
+                      ),
+                      Flexible(
+                        flex: 1,
+                        fit: FlexFit.loose,
+                        child: Text("Hi"),
+                      ),
+                    ],
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: SizedBox(height: 10),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: Text(
+                    'Hello',
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -66,5 +113,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+
+  void reqPermission() {
+    ///For android 13 api 33 and above
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestPermission();
   }
 }
